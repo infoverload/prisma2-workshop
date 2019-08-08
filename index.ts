@@ -8,7 +8,7 @@ const app = express()
 app.use(bodyParser.json())
 
 
-app.post(`/addGenre`, async (req, res) => {
+app.post(`/createGenre`, async (req, res) => {
   const { name } = req.body
   const genre = await photon.genres.create({
     data: {
@@ -51,6 +51,14 @@ app.get('/filterPlaylist', async (req, res) => {
   })
   res.json(playlists)
 })
+
+// write a new route that creates a new artist
+
+// write a new route that deletes an artist
+
+// write a new route that filters albums by ordering them by year
+
+// write a new route that updates a playlist 
 
 const server = app.listen(3000, () =>
   console.log('Server is running on http://localhost:3000'),
