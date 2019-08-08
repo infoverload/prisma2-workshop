@@ -1,8 +1,28 @@
 import Photon from '@generated/photon'
+//import * as path from "path"
+
+// const photon = new Photon({
+//   __internal: {
+//     engine: {binaryPath:"../binary"}
+//   }
+// })
+
+// const photon = new Photon({
+//   __internal: {
+//     engine: {
+//       binaryPath: path.join(__dirname, './binary'),
+//     },
+//   },
+// })
 
 const photon = new Photon()
 
 async function main() {
+  const genre1 = await photon.genres.create({
+    data: {
+      name: 'rock',
+    },
+  })
   const artist1 = await photon.artists.create({
     data: {
       name: 'Beatles',
@@ -18,12 +38,28 @@ async function main() {
           id: artist1.id
         }
       },
-      //genre: { genre1 }
+      genre: {
+        connect: {
+          id: genre1.id,
+        },
+      },
+    },
+  })
+  const playlist1 = await photon.playlists.create({
+    data: {
+      album: {
+        connect: {
+          id: album1.id,
+        },
+      },
+      name: 'Playlist 1',
+      public: true,
     },
   })
 
-  console.log({ album1, artist1})
+  console.log({ playlist1, album1, artist1})
 }
 
 main()
-  .catch(e => console.error(e))
+ .then(_ => photon.disconnect())
+ .catch(e => console.error(e))

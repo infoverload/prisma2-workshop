@@ -7,7 +7,43 @@ const app = express()
 
 app.use(bodyParser.json())
 
-app.get('/playlists', async (req, res) => {
+
+app.post(`/addGenre`, async (req, res) => {
+  const { name } = req.body
+  const genre = await photon.genres.create({
+    data: {
+      name,
+    },
+  })
+  res.json(genre)
+})
+
+app.delete(`/deleteGenre/:id`, async (req, res) => {
+  const { id } = req.params
+  const post = await photon.genres.delete({
+    where: {
+      id,
+    },
+  })
+  res.json(post)
+})
+
+app.get(`/getArtist/:id`, async (req, res) => {
+  const { id } = req.params
+  const artist = await photon.artists.findOne({
+    where: {
+      id,
+    },
+  })
+  res.json(artist)
+})
+
+app.get('/getAlbums', async (req, res) => {
+  const albums = await photon.albums.findMany()
+  res.json(albums)
+})
+
+app.get('/filterPlaylist', async (req, res) => {
   const playlists = await photon.playlists.findMany({
     where: {
       public: true
