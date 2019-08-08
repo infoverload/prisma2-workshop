@@ -52,12 +52,12 @@ async function main() {
           id: album1.id,
         },
       },
-      name: 'Playlist 1',
+      name: 'Party tunes',
       public: true,
     },
   })
 
-  console.log({ playlist1, album1, artist1})
+  console.log({genre1, playlist1, album1, artist1})
 }
 
 main()
