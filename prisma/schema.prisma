@@ -3,6 +3,10 @@ datasource db {
   url      = "file:./database.db"
 }
 
+generator photon {
+  provider = "photonjs"
+}
+
 model Genre {
   id   String @default(cuid()) @id
   name String @unique
@@ -11,16 +15,16 @@ model Genre {
 model Artist {
   id           String  @default(cuid()) @id
   name         String
-  album        Album[]
 }
 
 model Album {
   id          String   @default(cuid()) @id
   name        String
   releaseYear Int
-  rating      Int
-  artist      Artist[]
+  rating      Int?
+  artist      Artist
   genre       Genre?
+  playlist    Playlist[]
 }
 
 model Playlist {
